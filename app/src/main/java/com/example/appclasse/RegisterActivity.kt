@@ -75,11 +75,13 @@ class RegisterActivity : AppCompatActivity() {
 
                     //Enviamos datos a la BD
 
-                   /* val userBD=dbReference.child(user?.uid)
+                    user?.uid?.let {
+                        val userBD=dbReference.child(it)
+                        userBD.child("Name").setValue(name)
+                        userBD.child("LastName").setValue(lastName)
+                    }
 
-                    userBD.child("Name").setValue(name)
-                    userBD.child("LastName").setValue(lastName)
-                    action() */
+                    action()
                 }
             }
         }
