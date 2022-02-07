@@ -23,14 +23,14 @@ class MainActivity : AppCompatActivity()
 
         }
 
-        binding.menuMainActivity.setOnMenuItemClickListener { menuItem ->
+       /* binding.menuMainActivity.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.action_settings -> startActivity(Intent(this, SettingsActivity::class.java))
                 R.id.action_logout -> logout()
                 else -> return@setOnMenuItemClickListener false
             }
             true
-        }
+        }*/
 
 
     }

@@ -9,7 +9,7 @@ import android.widget.AbsSeekBar
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
-import com.example.appclasse.ui.login.LoginActivity
+import com.example.appclasse.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseUser
@@ -75,11 +75,11 @@ class RegisterActivity : AppCompatActivity() {
 
                     //Enviamos datos a la BD
 
-                    val userBD=dbReference.child(user?.uid)
+                   /* val userBD=dbReference.child(user?.uid)
 
                     userBD.child("Name").setValue(name)
                     userBD.child("LastName").setValue(lastName)
-                    action()
+                    action() */
                 }
             }
         }
