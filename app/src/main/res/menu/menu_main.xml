@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.particles_example_app.ui.main.MainActivity">
     <item
+        android:id="@+id/shop"
+        android:orderInCategory="100"
+        android:title="Shop"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="Setting"

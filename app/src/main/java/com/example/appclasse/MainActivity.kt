@@ -19,28 +19,27 @@ class MainActivity : AppCompatActivity()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.hide()
+
         binding.MainButton.setOnClickListener{
 
         }
 
-       /* binding.menuMainActivity.setOnMenuItemClickListener { menuItem ->
+       binding.menuMainActivity.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.action_settings -> startActivity(Intent(this, SettingsActivity::class.java))
+                R.id.action_settings -> startActivity(Intent(this, SettingActivity::class.java))
                 R.id.action_logout -> logout()
                 else -> return@setOnMenuItemClickListener false
             }
             true
-        }*/
+        }
 
 
     }
 
-    /*fun logout() {
-        // TODO: Make the necessary things to logout the user
-
-        // Then, finish this activity and go to the LoginActivity
+    fun logout() {
         startActivity(Intent(this, LoginActivity::class.java))
         finish()
-    }*/
+    }
 }
 

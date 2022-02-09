@@ -32,7 +32,7 @@ class LoginActivity : AppCompatActivity() {
 
     fun forgotPassword(view:View)
     {
-
+        startActivity(Intent(this, ResetPasswordActivity::class.java))
     }
 
     fun register(view:View)
@@ -64,6 +64,7 @@ class LoginActivity : AppCompatActivity() {
                 }else
                 {
                     Toast.makeText(this, "Error in authentication", Toast.LENGTH_LONG).show()
+                    progressBar.visibility=View.INVISIBLE
                 }
             }
         }
@@ -72,7 +73,10 @@ class LoginActivity : AppCompatActivity() {
     private fun action()
     {
         startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
+
+
 
 
 }

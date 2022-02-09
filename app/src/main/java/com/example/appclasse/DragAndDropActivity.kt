@@ -40,6 +40,9 @@ class DragAndDropActivity : AppCompatActivity() {
 
         binding.chipGroup.setOnDragListener(dragListener)
 
+        binding.blackhole.alpha = 0f
+        binding.blackhole.setOnDragListener(removeDragListener)
+
     }
 
     val dragListener = View.OnDragListener { v, event ->
@@ -55,10 +58,8 @@ class DragAndDropActivity : AppCompatActivity() {
                // movingChip.setBackgroundResource(R.color.transparent)
             }
 
-            DragEvent.ACTION_DROP -> {
-                binding.chipGroup2.removeView(movingChip)
-                binding.chipGroup.addView(movingChip)
 
+            DragEvent.ACTION_DROP -> {
                 val parent = ChipGroup::class.safeCast(movingChip.parent)
                 parent?.removeView(movingChip)
 
@@ -69,6 +70,40 @@ class DragAndDropActivity : AppCompatActivity() {
                 movingChip.setTextColor(getColor(R.color.black))
                 movingChip.chipStrokeWidth = 0f
                // movingChip.setBackgroundResource(R.color.transparent)
+            }
+        }
+
+        true
+    }
+
+    val removeDragListener = View.OnDragListener { v, event ->
+
+        val movingChip = Chip::class.safeCast(event.localState) ?: return@OnDragListener false
+
+        when(event.action)
+        {
+            DragEvent.ACTION_DRAG_STARTED -> {
+                binding.blackhole.animate().alpha(1f)
+            }
+
+            DragEvent.ACTION_DRAG_ENTERED -> {
+                binding.blackhole.animate().scaleX(1.6f).scaleY(1.6f)
+
+            }
+
+            DragEvent.ACTION_DRAG_EXITED -> {
+                binding.blackhole.animate().scaleX(1f).scaleY(1f)
+            }
+
+            DragEvent.ACTION_DROP -> {
+                val parent = ChipGroup::class.safeCast(movingChip.parent)
+                parent?.removeView(movingChip)
+            }
+
+            DragEvent.ACTION_DRAG_ENDED -> {
+                binding.blackhole.animate().alpha(0f)
+
+
             }
         }
 

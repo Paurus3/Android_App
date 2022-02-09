@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".DragAndDropActivity">
 
+    <ImageView
+        android:id="@+id/blackhole"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        app:layout_constraintBottom_toBottomOf="@+id/chipGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/blackhole" />
+
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroup2"
         android:layout_width="0dp"
