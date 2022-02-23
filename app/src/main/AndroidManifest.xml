@@ -15,8 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppClasse">
-        <activity android:name=".ShopActivity"></activity>
-        <activity android:name=".SettingActivity" />
+        <activity android:name=".SettingActivity"></activity>
         <activity android:name=".ResetPasswordActivity" />
         <activity
             android:name=".LoginActivity"

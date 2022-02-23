@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity()
 
        binding.menuMainActivity.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.shop -> startActivity(Intent(this, ShopActivity::class.java))
                 R.id.action_settings -> startActivity(Intent(this, SettingActivity::class.java))
                 R.id.action_logout -> logout()
                 else -> return@setOnMenuItemClickListener false
