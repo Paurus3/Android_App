@@ -30,21 +30,25 @@ class LoginActivity : AppCompatActivity() {
         auth= FirebaseAuth.getInstance()
     }
 
+    //Funcion para pasar a activity de forgot password
     fun forgotPassword(view:View)
     {
         startActivity(Intent(this, ResetPasswordActivity::class.java))
     }
 
+    //Funcion para pasar a activity de register
     fun register(view:View)
     {
         startActivity(Intent(this, RegisterActivity::class.java))
     }
 
+    //Funcion para logear
     fun login(view:View)
     {
         loginUser()
     }
 
+    //Funcion para logear un usuario
     private fun loginUser()
     {
         val user:String=txtUser.text.toString()

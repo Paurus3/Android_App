@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity()
 
     }
 
+    //Vamos a la activity de login al hacer logout
     fun logout() {
         startActivity(Intent(this, LoginActivity::class.java))
         finish()

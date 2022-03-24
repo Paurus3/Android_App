@@ -24,6 +24,7 @@ class ResetPasswordActivity : AppCompatActivity() {
 
     }
 
+    //Funcion para resetear password
     fun resetPassword(view: View)
     {
         val email:String=txtEmail.text.toString()
