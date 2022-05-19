@@ -8,9 +8,14 @@ import android.widget.Toast
 import androidx.appcompat.view.menu.ActionMenuItemView
 import com.example.appclasse.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity()
+public class MainActivity : AppCompatActivity()
 {
     private lateinit var binding: ActivityMainBinding
+    private TextView countdownText;
+    private Button countdownButton;
+
+    private 
+
 
     override fun onCreate(savedInstanceState: Bundle?)
     {

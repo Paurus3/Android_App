@@ -48,6 +48,7 @@
     <string name="sing_in">Sing In</string>
     <string name="register">Register</string>
     <string name="send_restart_mail">Send Restart Mail</string>
+    <string name="start">Start</string>
 
 
 </resources>

@@ -8,6 +8,7 @@
     tools:context=".MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,29 +23,25 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="223dp"
-        android:layout_height="208dp"
-        android:adjustViewBounds="true"
-        android:contentDescription="@string/imagen_main"
+    <TextView
+        android:id="@+id/Timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499"
-        app:srcCompat="@drawable/ic_photo1"
-        tools:srcCompat="@drawable/ic_photo1"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        tools:text="10:00" />
 
     <Button
         android:id="@+id/MainButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_main"
+        android:text="@string/start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/Timer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
