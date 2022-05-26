@@ -1,18 +1,15 @@
 package com.example.appclasse
 
 import android.content.Intent
-import android.content.IntentSender
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.widget.Button
-import android.text.TextUtils
-import android.widget.AutoCompleteTextView
-import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.view.menu.ActionMenuItemView
+import android.text.format.DateFormat
+import androidx.appcompat.app.AppCompatActivity
 import com.example.appclasse.databinding.ActivityMainBinding
 import java.util.*
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 public class MainActivity : AppCompatActivity()
 {
@@ -22,10 +19,21 @@ public class MainActivity : AppCompatActivity()
     internal lateinit var countDownTimer: CountDownTimer
     internal var initialCountDown: Long = 60000
     internal var countDownInterval: Long = 1000
+    internal var timeLeft = 0L
+
+    private lateinit var dbReference: DatabaseReference
+    private lateinit var database: FirebaseDatabase
+    private lateinit var auth: FirebaseAuth
+
+
+    internal var score = 0
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
+
+        database = FirebaseDatabase.getInstance()
+        auth = FirebaseAuth.getInstance()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -33,11 +41,11 @@ public class MainActivity : AppCompatActivity()
         supportActionBar?.hide()
 
         binding.MainButton.setOnClickListener{
-
+            startStop()
         }
 
         binding.Timer.setOnClickListener {
-            startStop();
+            setTimer()
         }
 
        binding.menuMainActivity.setOnMenuItemClickListener { menuItem ->
@@ -74,23 +82,153 @@ public class MainActivity : AppCompatActivity()
 
     fun startTimer()
     {
+        timeRunning = true
         val initialTimeLeft = initialCountDown / 1000
+        binding.MainButton.text = "Stop"
         binding.Timer.text = initialTimeLeft.toString()
 
         countDownTimer = object: CountDownTimer(initialCountDown, countDownInterval)
         {
             override  fun onTick(millisUntilFinished: Long){
-                val timeLeft = millisUntilFinished / 1000
-                binding.Timer.text = timeLeft.toString()
+
+                 timeLeft = millisUntilFinished
+                val rep = Calendar.getInstance()
+                rep.set(0,0,0,0,0,0)
+                rep.set(Calendar.MILLISECOND, timeLeft.toInt())
+                binding.Timer.text = DateFormat.format("mm:ss", rep.time)
+
             }
             override fun onFinish(){
-
+                stopTimer()
             }
         }
-        timeRunning = true
+        countDownTimer.start()
     }
 
+
     fun stopTimer()
+    {
+
+        //Sistema punts
+
+        //1 Hora
+        if(initialCountDown >= 3600000)
+        {
+            if (initialCountDown - timeLeft <= 0)
+            {
+                score += 1000;
+            }
+            if (initialCountDown - timeLeft in 900000..1800000)
+            {
+                score += 750;
+            }
+            if (initialCountDown - timeLeft in 1800000..2699999)
+            {
+                score += 500;
+            }
+            if (initialCountDown - timeLeft in 2700000..3599999)
+            {
+                score += 250;
+            }
+            binding.score.text = score.toString();
+        }
+
+        // 45 min
+        if(initialCountDown in 2700000..3599999)
+        {
+            if (initialCountDown - timeLeft <= 0)
+            {
+                score += 750
+            }
+            if (initialCountDown - timeLeft in 675000..1349999)
+            {
+                score += 600;
+            }
+            if (initialCountDown - timeLeft in 1350000..2024999)
+            {
+                score += 300;
+            }
+            if (initialCountDown - timeLeft in 2025000..2699999)
+            {
+                score += 150;
+            }
+            binding.score.text = score.toString();
+        }
+
+        // 30 min
+        if(initialCountDown in 1800000..2699999)
+        {
+            if (initialCountDown - timeLeft <= 0)
+            {
+                score += 500;
+            }
+            if (initialCountDown - timeLeft in 450000..899999)
+            {
+                score += 350;
+            }
+            if (initialCountDown - timeLeft in 900000..1349999)
+            {
+                score += 250;
+            }
+            if (initialCountDown - timeLeft in 1350000..1799999)
+            {
+                score += 100;
+            }
+            binding.score.text = score.toString();
+        }
+
+        // 15 min
+        if(initialCountDown in 900000..179999)
+        {
+            if (initialCountDown - timeLeft <= 0)
+            {
+                score += 250;
+            }
+            if (initialCountDown - timeLeft in 225000..449999)
+            {
+                score += 100;
+            }
+            if (initialCountDown - timeLeft in 450000..674999)
+            {
+                score += 50;
+            }
+            if (initialCountDown - timeLeft in 675000..899999)
+            {
+                score += 25;
+            }
+            binding.score.text = score.toString();
+        }
+
+        // menos 15 min
+        if (initialCountDown < 899999)
+        {
+            if (initialCountDown - timeLeft <= 0)
+            {
+                score += 40;
+            }
+            if (initialCountDown - timeLeft in initialCountDown/4*2+1..initialCountDown/4*3)
+            {
+                score += 20;
+            }
+            if (initialCountDown - timeLeft in initialCountDown/4+1..initialCountDown/4*2)
+            {
+                score += 10;
+            }
+            if (initialCountDown - timeLeft < initialCountDown/4)
+            {
+                score += 1;
+            }
+            binding.score.text = score.toString();
+        }
+
+
+        countDownTimer.cancel()
+        timeRunning = false
+        binding.MainButton.text = "Start"
+        binding.Timer.text = "00:00"
+    }
+
+    fun setTimer()
     {
 
     }
