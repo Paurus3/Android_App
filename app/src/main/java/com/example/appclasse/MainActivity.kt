@@ -4,12 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.format.DateFormat
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doOnTextChanged
 import com.example.appclasse.databinding.ActivityMainBinding
 import java.util.*
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 
 public class MainActivity : AppCompatActivity()
 {
@@ -21,9 +20,6 @@ public class MainActivity : AppCompatActivity()
     internal var countDownInterval: Long = 1000
     internal var timeLeft = 0L
 
-    private lateinit var dbReference: DatabaseReference
-    private lateinit var database: FirebaseDatabase
-    private lateinit var auth: FirebaseAuth
 
 
     internal var score = 0
@@ -32,8 +28,6 @@ public class MainActivity : AppCompatActivity()
     {
         super.onCreate(savedInstanceState)
 
-        database = FirebaseDatabase.getInstance()
-        auth = FirebaseAuth.getInstance()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -41,12 +35,16 @@ public class MainActivity : AppCompatActivity()
         supportActionBar?.hide()
 
         binding.MainButton.setOnClickListener{
+            initialCountDown =  binding.texInputEditTextNumber.text.toString().toLong() *600000
+            binding.texInputEditTextNumber.visibility = View.INVISIBLE
             startStop()
         }
 
         binding.Timer.setOnClickListener {
+            binding.texInputEditTextNumber.visibility = View.VISIBLE
             setTimer()
         }
+
 
        binding.menuMainActivity.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
@@ -57,8 +55,6 @@ public class MainActivity : AppCompatActivity()
             }
             true
         }
-
-
     }
 
 
@@ -82,27 +78,30 @@ public class MainActivity : AppCompatActivity()
 
     fun startTimer()
     {
-        timeRunning = true
-        val initialTimeLeft = initialCountDown / 1000
-        binding.MainButton.text = "Stop"
-        binding.Timer.text = initialTimeLeft.toString()
-
-        countDownTimer = object: CountDownTimer(initialCountDown, countDownInterval)
+        if(initialCountDown != 0L)
         {
-            override  fun onTick(millisUntilFinished: Long){
+            timeRunning = true
+            val initialTimeLeft = initialCountDown
+            binding.MainButton.text = "Stop"
+            //binding.Timer.text = initialTimeLeft.toString()
 
-                 timeLeft = millisUntilFinished
-                val rep = Calendar.getInstance()
-                rep.set(0,0,0,0,0,0)
-                rep.set(Calendar.MILLISECOND, timeLeft.toInt())
-                binding.Timer.text = DateFormat.format("mm:ss", rep.time)
+            countDownTimer = object: CountDownTimer(initialCountDown, countDownInterval)
+            {
+                override  fun onTick(millisUntilFinished: Long){
 
+                    timeLeft = millisUntilFinished
+                    val rep = Calendar.getInstance()
+                    rep.set(0,0,0,0,0,0)
+                    rep.set(Calendar.MILLISECOND, timeLeft.toInt())
+                    binding.Timer.text = DateFormat.format("mm:ss", rep.time)
+
+                }
+                override fun onFinish(){
+                    stopTimer()
+                }
             }
-            override fun onFinish(){
-                stopTimer()
-            }
+            countDownTimer.start()
         }
-        countDownTimer.start()
     }
 
 
