@@ -35,7 +35,7 @@ public class MainActivity : AppCompatActivity()
         supportActionBar?.hide()
 
         binding.MainButton.setOnClickListener{
-            initialCountDown =  binding.texInputEditTextNumber.text.toString().toLong() *600000
+            initialCountDown =  binding.texInputEditTextNumber.text.toString().toLong() *60000
             binding.texInputEditTextNumber.visibility = View.INVISIBLE
             startStop()
         }
