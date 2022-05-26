@@ -233,6 +233,14 @@ public class MainActivity : AppCompatActivity()
 
     }
 
+    override fun onPause() {
+        super.onPause()
+        countDownTimer.cancel()
+        timeRunning = false
+        binding.MainButton.text = "Start"
+        binding.Timer.text = "00:00"
+    }
+
 
 }
 
